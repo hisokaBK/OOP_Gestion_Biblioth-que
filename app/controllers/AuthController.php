@@ -70,7 +70,11 @@ class AuthController {
 
         if ($user && password_verify($password, $user['password'])) {
             unset($user['password']);
-            $_SESSION['user'] = $user;
+            if($user['role']=='reader'){
+                $_SESSION['user'] = new Reader( $user['id'],$user['firstName'],$user['lastName'],$user['email'],$user['password'],$user['role']);
+            }else{
+                $_SESSION['user'] = new Admin($user['id'],$user['firstName'],$user['lastName'],$user['email'],$user['password'],$user['role']) ;
+            }
             return true; 
         }
 

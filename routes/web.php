@@ -1,5 +1,8 @@
 <?php 
 
+require_once __DIR__ . '/../app/Models/User.php';
+require_once __DIR__ . '/../app/Models/Admin.php';
+require_once __DIR__ . '/../app/Models/Reader.php';
   session_start();
   require_once __DIR__ . '/../config/dbconnection.php';
   
@@ -10,7 +13,6 @@
       $uri = 'home';
   }
 
-  
    $pages =[
          'home'=>[
                'controller'=>'AuthController',
@@ -66,35 +68,36 @@ if (array_key_exists($uri, $pages)){
           }else{
                 require_once __DIR__ . "/../app/controllers/{$pages[$uri]['controller']}.php";
 
-            if ($uri === 'login') {
-                   if (AuthController::login($_POST)) {
-                       header("Location: /home");
-                       exit;
-                   } else {
-                       header("Location: /login");
-                       exit;
-                   }
-            }
-            if($uri === 'register') {
-                if (AuthController::register($_POST)) {
-                    header("Location: /login");
-                    exit;
-                } else {
-                    header("Location: /register");
-                    exit;
-                }
-            }
-
-            if($uri === 'logout'){
+              switch($uri) {
+                    case "login" :
+                       if (AuthController::login($_POST)) {
+                            header("Location: /home");
+                            exit;
+                        } else {
+                            header("Location: /login");
+                            exit;
+                        }
+                    case "register" :
+                        if (AuthController::register($_POST)) {
+                            header("Location: /login");
+                            exit;
+                        } else {
+                            header("Location: /register");
+                            exit;
+                        }  
+                    case "logout" :
                         AuthController::logout();
-                       header("Location: /login");
-                    exit;
-                }
+                        header("Location: /login");
+                        exit;
+                    default :
+                        header("Location: /404");
+                        exit;
+                } 
             }
           
 }else{
       $title ='404';
-        require_once __DIR__ . "/../app/views/404.view.php";
-
+      require_once __DIR__ . "/../app/views/404.view.php";
 }
+
 if(isset($_SESSION['error'])){unset($_SESSION['error']);};

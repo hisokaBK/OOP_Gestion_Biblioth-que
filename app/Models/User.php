@@ -9,7 +9,7 @@ abstract class User
     private  $password;
     private  $role; 
 
-    public function __construct($id,$firstName,$lastName,$email,$password,$role = 'reader') {
+    public function __construct($id,$firstName,$lastName,$email,$password,$role) {
         $this->id = $id;
         $this->firstName = $firstName;
         $this->lastName  = $lastName;

@@ -25,7 +25,7 @@
              :'hover:text-emerald-400 text-stone-200' ?>">À propos</a>
         </li>
 
-        <li class="<?php echo isset($_SESSION['user']) && $_SESSION['user']['role']=='admin'?'':'hidden'?>">
+        <li class="<?php echo isset($_SESSION['user']) && $_SESSION['user']->role=='admin'?'':'hidden'?>">
           <a href="/dashboard"
              class="<?php echo $_SERVER['REQUEST_URI']!='/dashboard'
              ?'text-stone-200 hover:text-emerald-400'
