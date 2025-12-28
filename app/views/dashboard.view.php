@@ -16,8 +16,7 @@
 
   include(__DIR__.'/../templates/header.temp.php');
 
-  include(__DIR__.'/../templates/homeSection.temp.php');
-  
+  include(__DIR__.'/../templates/dashboard.temp.php');
 
   include(__DIR__.'/../templates/footer.temp.php')
 

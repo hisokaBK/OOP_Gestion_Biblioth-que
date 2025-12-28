@@ -4,16 +4,18 @@ class Book
 {
     private  $id;
     private  $title;
+    private  $image ;
     private  $author;
     private  $year;
     private  $status; 
 
-    public function __construct($id,$title,$author,$year,$status ) {
-        $this->id     = $id;
-        $this->title  = $title;
-        $this->author = $author;
-        $this->year   = $year;
-        $this->status = $status;
+    public function __construct($id,$title,$author,$year,$status,$image ) {
+        $this->id     = $id ;
+        $this->title  = $title ;
+        $this->author = $author ;
+        $this->year   = $year ;
+        $this->status = $status ;
+        $this->image  = $image ;
     }
 
     public function getId(){ return $this->id;}

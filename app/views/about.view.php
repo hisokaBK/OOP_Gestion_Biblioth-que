@@ -13,11 +13,13 @@
 
 <?php 
 
+ include(__DIR__.'/../templates/header.temp.php');
+    echo "<br>";
+    echo "<br>";
+    echo "mazal l9adiya 7amda";
+    echo "<br>";
+    echo "<br>";
 
-  include(__DIR__.'/../templates/header.temp.php');
-
-  include(__DIR__.'/../templates/homeSection.temp.php');
-  
 
   include(__DIR__.'/../templates/footer.temp.php')
 
