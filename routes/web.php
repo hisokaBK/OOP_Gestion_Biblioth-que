@@ -1,10 +1,10 @@
 <?php 
-
+require_once __DIR__ . '/../config/dbconnection.php';
 require_once __DIR__ . '/../app/Models/User.php';
 require_once __DIR__ . '/../app/Models/Admin.php';
 require_once __DIR__ . '/../app/Models/Reader.php';
+require_once __DIR__ . '/../app/Models/Book.php';
   session_start();
-  require_once __DIR__ . '/../config/dbconnection.php';
   
   $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
   $uri = trim($uri, '/');
@@ -38,12 +38,27 @@ require_once __DIR__ . '/../app/Models/Reader.php';
                'controller'=>'',
                 'method' => $_SERVER['REQUEST_METHOD'],
                 'view' => 'about'  
-         ]
-         ,
-         'books'=>[
+         ],
+         'addBook'=>[
                'controller'=>'',
                 'method' => $_SERVER['REQUEST_METHOD'],
+                'view' => 'addBook' 
+         ],
+         'books'=>[
+               'controller'=>'bookController',
+                'method' => $_SERVER['REQUEST_METHOD'],
                 'view' => 'books'  
+         ],
+         'oneBook'=>[
+               'controller'=>'bookController',
+                'method' => $_SERVER['REQUEST_METHOD'],
+                'view' => 'oneBook'  
+         ]
+         ,
+         'delete'=>[
+               'controller'=>'bookController',
+                'method' => $_SERVER['REQUEST_METHOD'],
+                'view' => 'delete'  
          ]
          ,
          'profil'=>[
@@ -64,9 +79,30 @@ require_once __DIR__ . '/../app/Models/Reader.php';
 if (array_key_exists($uri, $pages)){
        $title = $uri ;
           if ($pages[$uri]['method']=="GET"){
-                 require_once __DIR__ . "/../app/views/{$pages[$uri]['view']}.view.php";
+               if($pages[$uri]['controller']=='bookController'){ 
+
+               require_once __DIR__ . "/../app/controllers/{$pages[$uri]['controller']}.php";
+
+                 switch($uri){
+                    case 'books':
+                          BookController::getBooks();
+                          break;
+                    case 'oneBook':
+                          BookController::getOneBooks($_GET['id']);
+                          break;
+                    case 'delete':
+                          BookController::deleteBooks($_GET['id']);
+                            header("Location: /books");
+                             exit;
+                 }
+                }
+
+                require_once __DIR__ . "/../app/views/{$pages[$uri]['view']}.view.php";
+                 
+                
           }else{
-                require_once __DIR__ . "/../app/controllers/{$pages[$uri]['controller']}.php";
+
+              require_once __DIR__ . "/../app/controllers/{$pages[$uri]['controller']}.php";
 
               switch($uri) {
                     case "login" :

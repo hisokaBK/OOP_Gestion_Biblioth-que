@@ -30,8 +30,8 @@ class AuthController {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
         $stmt = $conn->prepare("
-            INSERT INTO users (firstName, lastName, email, password, role)
-            VALUES (?, ?, ?, ?, 'reader')
+            INSERT INTO users (firstName, lastName, email, password)
+            VALUES (?, ?, ?, ?)
         ");
 
         if ($stmt->execute([$firstName, $lastName, $email, $hashedPassword])) {
@@ -60,7 +60,7 @@ class AuthController {
         }
 
         $stmt = $conn->prepare("
-            SELECT id, firstName, lastName, email, password, role
+            SELECT id, firstName, lastName, email, password, role ,created_at
             FROM users
             WHERE email = ?
         ");
@@ -69,11 +69,31 @@ class AuthController {
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['password'])) {
-            unset($user['password']);
+            $user['password']='.hhh.';
+
             if($user['role']=='reader'){
-                $_SESSION['user'] = new Reader( $user['id'],$user['firstName'],$user['lastName'],$user['email'],$user['password'],$user['role']);
+                $_SESSION['user'] = new Reader( $user['id'],$user['firstName'],$user['lastName'],$user['email'],$user['password'],$user['role'],$user['created_at']);
+
+                $_SESSION['users']=[];
+      
             }else{
-                $_SESSION['user'] = new Admin($user['id'],$user['firstName'],$user['lastName'],$user['email'],$user['password'],$user['role']) ;
+                $_SESSION['user'] = new Admin($user['id'],$user['firstName'],$user['lastName'],$user['email'],$user['password'],$user['role'],$user['created_at']) ;
+
+                $_SESSION['users']=[];
+
+                $users = $conn->prepare("
+                    SELECT *
+                    FROM users
+                ");
+                $users->execute();
+        
+                $users = $users->fetchAll();
+                foreach($users as $user){
+                      if($user['role']=='reader'){
+                          $_SESSION['users']=[...$_SESSION['users'],new Reader($user['id'],$user['firstName'],$user['lastName'],$user['email'],$user['password'],$user['role'],$user['created_at'])];
+                      }
+                       
+                }
             }
             return true; 
         }

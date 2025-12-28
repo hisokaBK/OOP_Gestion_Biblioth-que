@@ -5,7 +5,7 @@
                 <img src="https://via.placeholder.com/100" alt="User Avatar" class="w-24 h-24 rounded-full border-4 border-[#2f5d50] shadow-md"> 
             </div>
              <h2 class="text-xl font-bold text-gray-800"><?php echo $_SESSION['user']->getFirstName() ." " .$_SESSION['user']->getLastName() ?></h2>
-              <p class="text-gray-600"><?php echo $_SESSION['user']->getEail() ?></p> 
+              <p class="text-gray-600"><?php echo $_SESSION['user']->getEmail() ?></p> 
             <div class="space-y-2 text-left"> 
                 <p><span class="font-semibold text-gray-700">First Name:</span> <?php echo $_SESSION['user']->getFirstName() ?></p>
                 <p><span class="font-semibold text-gray-700">Last Name:</span> <?php echo $_SESSION['user']->getLastName() ?></p>

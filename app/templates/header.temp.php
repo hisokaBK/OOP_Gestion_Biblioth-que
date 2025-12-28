@@ -25,11 +25,17 @@
              :'hover:text-emerald-400 text-stone-200' ?>">À propos</a>
         </li>
 
-        <li class="<?php echo isset($_SESSION['user']) && $_SESSION['user']->role=='admin'?'':'hidden'?>">
+        <li class="<?php echo isset($_SESSION['user']) && $_SESSION['user']->getRole()=='admin'?'':'hidden'?>">
           <a href="/dashboard"
              class="<?php echo $_SERVER['REQUEST_URI']!='/dashboard'
              ?'text-stone-200 hover:text-emerald-400'
-             :'text-emerald-500 font-medium' ?>">Dashboard</a>
+             :'text-emerald-500 font-medium' ?>">Dashboard </a>
+        </li>
+        <li class="<?php echo isset($_SESSION['user']) && $_SESSION['user']->getRole()=='admin'?'':'hidden'?>">
+          <a href="/addBook"
+             class="<?php echo $_SERVER['REQUEST_URI']!='/addBook'
+             ?'text-stone-200 hover:text-emerald-400'
+             :'text-emerald-500 font-medium' ?>">Add-Book </a>
         </li>
       </ul>
 
@@ -63,4 +69,4 @@
     </nav>
 </header>
 </section>
-<div class="h-10"></div>
+<div class=" h-20"></div>
