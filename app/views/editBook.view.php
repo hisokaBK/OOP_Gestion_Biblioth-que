@@ -13,14 +13,12 @@
 
 <?php 
 
- include(__DIR__.'/../templates/header.temp.php');
+  include(__DIR__.'/../templates/header.temp.php'); 
 
- include(__DIR__.'/../templates/about.temp.php');
-  
+  include(__DIR__.'/../templates/editBook.temp.php'); 
+
   include(__DIR__.'/../templates/footer.temp.php')
 
-  ?> 
-  
-
+?> 
 </body>
 </html>

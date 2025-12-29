@@ -16,10 +16,10 @@
     <?php if (count($_SESSION['books'])==0): ?>
         <p class="text-gray-500">No books found.</p>
     <?php else: ?>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
             <?php foreach ($_SESSION['books'] as $book): ?>
                 
-                  <div class="flex bg-white rounded-xl shadow p-5">
+                  <div class="flex bg-white rounded-xl shadow p-5 min-w-[400px]">
                     <div>
                       <h3 class="text-lg font-semibold text-gray-800">
                           <?= htmlspecialchars($book->getTitle()) ?>
@@ -38,25 +38,24 @@
                       </p>
   
                       <div class="mt-4">
-                              <span class="text-green-600 font-semibold"><?=$book->getStatus()?></span>
+                              <span class="<?php echo $book->getStatus()=='available'?'text-green-600':'text-red-600'?> font-semibold"><?=$book->getStatus()?></span>
                       </div>
   
-                      <div class="mt-4">
-                          <?php if (isset($_SESSION['user']) && $_SESSION['user']->getRole() === 'reader' && $book->getStatus()=='available'): ?>
+                      <div class="mt-4 flex justify-around w-[100%]">
+                          
                               <a href="/oneBook?id=<?= $book->getId() ?>"
-                                 class="inline-block bg-[#2f5d50] text-white px-4 py-2 rounded hover:opacity-90">
-                                  Borrow
+                                 class=" min-w-[120px] inline-block bg-[#2f5d50] text-white px-4 py-2 rounded hover:opacity-90">
+                                  More info
                               </a>
-                          <?php endif; ?>
 
                           <?php if (isset($_SESSION['user']) && $_SESSION['user']->getRole() === 'admin'): ?>
                          
-                              <a href="edit.php?id=<?= $book->getId() ?>"
-                                 class="inline-block bg-yellow-500 text-white px-4 py-2 rounded">
+                              <a href="editBook?id=<?= $book->getId() ?>"
+                                 class=" min-w-[20px] inline-block border hover:bg-yellow-500 text-black px-4 py-2 rounded">
                                   Edit
                               </a>
                               <a href="/delete?id=<?= $book->getId() ?>"
-                                 class="inline-block bg-red-600 text-white px-4 py-2 rounded">
+                                 class=" min-w-[20px] inline-block border hover:bg-red-600 text-black px-4 py-2 rounded">
                                   Delete
                               </a>
                           <?php endif; ?>

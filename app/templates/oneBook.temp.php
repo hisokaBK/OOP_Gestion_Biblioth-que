@@ -3,20 +3,24 @@
   <div class="flex bg-[#f8f5f0] rounded-xl shadow-md p-6 gap-6 hover:shadow-lg transition max-w-3xl">
 
     <div class="flex-1">
-      <h3 class="text-2xl font-bold text-gray-800">
+      <h3 class="text-6xl font-bold text-gray-400 p-6">
         <?= htmlspecialchars($_SESSION['oneBooks']->getTitle()) ?>
       </h3>
 
       <p class="text-gray-700 mt-2">
-        Author: <?= htmlspecialchars($_SESSION['oneBooks']->getAuthor()) ?>
+         <span class=" font-bold text-xl"> Author : </span> <?= htmlspecialchars($_SESSION['oneBooks']->getAuthor()) ?>
       </p>
 
-      <p class="text-sm text-gray-600 mt-1">
-        Year: <?= $_SESSION['oneBooks']->getYear() ?>
+      <p class="text-sm text-gray-700 mt-1">
+        <span class=" font-bold text-xl">Year : </span> <?= $_SESSION['oneBooks']->getYear() ?>
       </p>
 
-      <p class="text-sm text-gray-600 mt-1">
-        Created_at: <?= $_SESSION['oneBooks']->getCreated_at() ?>
+      <p class="text-sm text-gray-700 mt-1">
+         <?= $_SESSION['oneBooks']->getCreated_at() ?>
+      </p>
+
+      <p class="text-gray-700 ">
+            <?= $_SESSION['oneBooks']->getDescription() ?>
       </p>
 
       <div class="mt-4">

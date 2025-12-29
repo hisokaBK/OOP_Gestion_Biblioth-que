@@ -16,8 +16,7 @@ class BookController{
         
             $books = $books->fetchAll();
             foreach($books as $book){
-                      $_SESSION['books']=[...$_SESSION['books'],new Book($book['id'],$book['title'],$book['author'],$book['year'],$book['status'],$book['image'],$book['created_at'])];
-                   
+                      $_SESSION['books']=[...$_SESSION['books'],new Book($book['id'],$book['title'],$book['author'],$book['year'],$book['status'],$book['description'],$book['image'],$book['created_at'])];
             }
     }
 
@@ -33,7 +32,7 @@ class BookController{
             $bookStmt->execute([$id]);
             
             $book = $bookStmt->fetch();
-                       $_SESSION['oneBooks']= new Book($book['id'],$book['title'],$book['author'],$book['year'],$book['status'],$book['image'],$book['created_at']);
+                       $_SESSION['oneBooks']= new Book($book['id'],$book['title'],$book['author'],$book['year'],$book['status'],$book['description'],$book['image'],$book['created_at']);
     }
 
     public static function deleteBooks($id){
@@ -48,17 +47,70 @@ class BookController{
             $bookStmt->execute([$id]);
     }
 
-    public static function edit($id){
+    public static function updateGetBook($id){
             $conn = Database::getConnection();
-
-            $bookStmt = $conn->prepare("
-                DELETE
-                FROM books
+            
+    }
+    public static function updateBook( $id, $data){
+            $conn = Database::getConnection();
+        
+            $title       = htmlspecialchars(trim($data['title']));
+            $author      = htmlspecialchars(trim($data['author']));
+            $year        = htmlspecialchars($data['year']);
+            $description = htmlspecialchars(trim($data['description']));
+            $image       = htmlspecialchars(trim($data['image']));
+            $status      = $data['status'];
+        
+            if (empty($title) || empty($author) || empty($description) || empty($image)) {
+                $_SESSION['error'] = "Tous les champs sont obligatoires";
+                return false;
+            }
+        
+            $stmt = $conn->prepare("
+                UPDATE books
+                SET title = ?, author = ?, year = ?, description = ?, image = ?, status = ?
                 WHERE id = ?
             ");
-            
-            $bookStmt->execute([$id]);
-    }
+        
+            if ($stmt->execute([$title,$author,$year,$description,$image,$status,$id])) {
+                $_SESSION['success'] = "Livre modifié avec succès";
+                return true;
+            }
+
+        }
+
+
+    public static function addBooks($data){
+        $conn = Database::getConnection();
+    
+        $title       = htmlspecialchars(trim($data['title'] ));
+        $author      = htmlspecialchars(trim($data['author'] ));
+        $year        = htmlspecialchars($data['year']);
+        $description = htmlspecialchars(trim($data['description'] ));
+        $image       = htmlspecialchars(trim($data['image'] ));
+    
+        if (empty($title) || empty($author) || empty($description) || empty($image) || $year <= 0) {
+            $_SESSION['error'] = "Tous les champs sont obligatoires";
+            return false;
+        }
+    
+        if ($year > date('Y')) {
+            $_SESSION['error'] = "Année invalide";
+            return false;
+        }
+    
+        $stmt = $conn->prepare("
+            INSERT INTO books (title, image, author, year, description)
+            VALUES (?, ?, ?, ?, ?)
+        ");
+    
+        if ($stmt->execute([$title, $image, $author, $year, $description])) {
+            $_SESSION['success'] = "Livre ajouté avec succès";
+            return true;
+        }
+    
+}
+
    
 }
  // public function __construct(PDO $conn)

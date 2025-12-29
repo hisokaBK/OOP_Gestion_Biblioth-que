@@ -53,12 +53,23 @@ require_once __DIR__ . '/../app/Models/Book.php';
                'controller'=>'bookController',
                 'method' => $_SERVER['REQUEST_METHOD'],
                 'view' => 'oneBook'  
+         ],
+         'addBook'=>[
+               'controller'=>'bookController',
+                'method' => $_SERVER['REQUEST_METHOD'],
+                'view' => 'addBook'  
          ]
          ,
          'delete'=>[
                'controller'=>'bookController',
                 'method' => $_SERVER['REQUEST_METHOD'],
                 'view' => 'delete'  
+         ]
+         ,
+         'editBook'=>[
+               'controller'=>'bookController',
+                'method' => $_SERVER['REQUEST_METHOD'],
+                'view' => 'editBook'  
          ]
          ,
          'profil'=>[
@@ -80,7 +91,6 @@ if (array_key_exists($uri, $pages)){
        $title = $uri ;
           if ($pages[$uri]['method']=="GET"){
                if($pages[$uri]['controller']=='bookController'){ 
-
                require_once __DIR__ . "/../app/controllers/{$pages[$uri]['controller']}.php";
 
                  switch($uri){
@@ -94,12 +104,14 @@ if (array_key_exists($uri, $pages)){
                           BookController::deleteBooks($_GET['id']);
                             header("Location: /books");
                              exit;
+                    case 'editBook':
+                            BookController::getOneBooks($_GET['id']);
+                            break;
                  }
                 }
 
                 require_once __DIR__ . "/../app/views/{$pages[$uri]['view']}.view.php";
                  
-                
           }else{
 
               require_once __DIR__ . "/../app/controllers/{$pages[$uri]['controller']}.php";
@@ -125,6 +137,15 @@ if (array_key_exists($uri, $pages)){
                         AuthController::logout();
                         header("Location: /login");
                         exit;
+                    case "addBook" :
+                        bookController::addBooks($_POST);
+                        header("Location: /addBook");
+                        exit;
+                    case "editBook" :
+                        bookController::updateBook($_POST['id'],$_POST);
+                        header("Location: /books");
+                        exit;
+
                     default :
                         header("Location: /404");
                         exit;

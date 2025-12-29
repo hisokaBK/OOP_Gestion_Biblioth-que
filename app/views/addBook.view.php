@@ -15,6 +15,7 @@
 
   include(__DIR__.'/../templates/header.temp.php'); 
 
+  include(__DIR__.'/../templates/addBook.temp.php'); 
 
   include(__DIR__.'/../templates/footer.temp.php')
 

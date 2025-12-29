@@ -1,7 +1,7 @@
 <?php
 
 class AuthController {
-    public static function register(array $data)
+    public static function register( $data)
     {
         $conn = Database::getConnection();
 
@@ -10,9 +10,6 @@ class AuthController {
         $email     = filter_var($data['email'] , FILTER_VALIDATE_EMAIL);
         $password  = $data['password'] ;
 
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
 
         if (!$email || empty($password)) {
             $_SESSION['error'] = "Email ou mot de passe invalide";
@@ -43,16 +40,12 @@ class AuthController {
         return false;
     }
 
-    public static function login(array $data)
+    public static function login( $data)
     {
         $conn = Database::getConnection();
 
         $email    = filter_var($data['email'] , FILTER_VALIDATE_EMAIL);
         $password = $data['password'] ;
-
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
 
         if (!$email || empty($password)) {
             $_SESSION['error'] = "Email ou mot de passe invalide";
