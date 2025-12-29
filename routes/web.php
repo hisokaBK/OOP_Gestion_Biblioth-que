@@ -10,7 +10,7 @@ require_once __DIR__ . '/../app/Models/Book.php';
   $uri = trim($uri, '/');
   
   if ($uri === '') {
-      $uri = 'home';
+          $uri = 'home';
   }
 
    $pages =[
@@ -72,6 +72,12 @@ require_once __DIR__ . '/../app/Models/Book.php';
                 'view' => 'editBook'  
          ]
          ,
+         'borrow'=>[
+               'controller'=>'borrowController',
+                'method' => $_SERVER['REQUEST_METHOD'],
+                'view' => 'books'  
+         ]
+         ,
          'profil'=>[
                'controller'=>'',
                 'method' => $_SERVER['REQUEST_METHOD'],
@@ -90,7 +96,7 @@ require_once __DIR__ . '/../app/Models/Book.php';
 if (array_key_exists($uri, $pages)){
        $title = $uri ;
           if ($pages[$uri]['method']=="GET"){
-               if($pages[$uri]['controller']=='bookController'){ 
+               if($pages[$uri]['controller']=='bookController' || $pages[$uri]['controller']=='borrowController' ){ 
                require_once __DIR__ . "/../app/controllers/{$pages[$uri]['controller']}.php";
 
                  switch($uri){
@@ -107,6 +113,10 @@ if (array_key_exists($uri, $pages)){
                     case 'editBook':
                             BookController::getOneBooks($_GET['id']);
                             break;
+                    case 'borrow':
+                            BorrowController::borrowBook($_GET['idUser'],$_GET['idBook']);
+                            header("Location: /books");
+                            exit;
                  }
                 }
 

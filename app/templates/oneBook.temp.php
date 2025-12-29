@@ -30,19 +30,19 @@
       </div>
 
       <div class="mt-6 space-x-2">
-        <?php if (isset($_SESSION['user']) && $_SESSION['user']->getRole() === 'reader' && $_SESSION['oneBooks']->getStatus()=='available'): ?>
-          <a href="/oneBook?id=<?= $_SESSION['oneBooks']->getId() ?>"
-             class="inline-block bg-[#2f5d50] text-[#f8f5f0] px-5 py-2 rounded-md hover:opacity-90 transition font-semibold">
+        <?php if (isset($_SESSION['user']) && $_SESSION['user']->getRole() ==='reader' && $_SESSION['oneBooks']->getStatus()=='available'): ?>
+          <a href="/borrow?idBook=<?= $_SESSION['oneBooks']->getId()?>&idUser=<?=$_SESSION['user']->getId()?>"
+             class="inline-block bg-[#2f5d50] text-[#f8f5f0] px-5 py-2 rounded-md hover:opacity-90 transition font-semibold min-w-[130px]">
             Borrow
           </a>
         <?php endif; ?>
 
         <?php if (isset($_SESSION['user']) && $_SESSION['user']->getRole() === 'admin'): ?>
-          <a href="edit.php?id=<?= $_SESSION['oneBooks']->getId() ?>"
+          <a href="editBook?id=<?= $_SESSION['oneBooks']->getId() ?>"
              class="inline-block bg-yellow-500 text-white px-5 py-2 rounded-md hover:bg-yellow-600 transition font-semibold">
             Edit
           </a>
-          <a href="delete.php?id=<?= $_SESSION['oneBooks']->getId() ?>"
+          <a href="/delete?id=<?= $_SESSION['oneBooks']->getId() ?>"
              class="inline-block bg-red-600 text-white px-5 py-2 rounded-md hover:bg-red-700 transition font-semibold">
             Delete
           </a>

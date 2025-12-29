@@ -60,7 +60,7 @@
 
           <li class="<?php echo !isset($_SESSION['user'])?'hidden':''?>">
             <a href="/profil">
-              <img src="assets/images/prof.png" alt="profil"
+              <img src="../../../public/assets/images/x.png" alt="profil"
                    class="rounded-full h-[31px] w-[31px] border border-amber-400">
             </a>
           </li>

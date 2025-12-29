@@ -6,13 +6,13 @@
                 </span>
 
 <?php endif ?>
-<section class="min-h-screen bg-gray-100 flex flex-col">
+<section class="min-h-[70%] bg-gray-100 flex flex-col py-16">
 
 
     <div class="flex-1 flex items-center justify-center">
         <div class="text-center max-w-2xl px-6">
 
-            <div class="text-center py-16"> <h2 class="text-4xl font-bold mb-4" style="color:#2f5d50;">Welcome to BibLioXt</h2> <p class="text-gray-700 max-w-2xl mx-auto"> Your modern library platform — browse, borrow, and manage books with ease.
+            <div class="text-center py-14"> <h2 class="text-4xl font-bold mb-4" style="color:#2f5d50;">Welcome to BibLioXt</h2> <p class="text-gray-700 max-w-2xl mx-auto"> Your modern library platform — browse, borrow, and manage books with ease.
                 
                 This platform allows users to explore books, manage borrowing,
                 and helps administrators organize the library efficiently.

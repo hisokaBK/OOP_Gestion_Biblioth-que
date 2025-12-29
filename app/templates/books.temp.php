@@ -1,6 +1,6 @@
 <section class="bg-gray-100">
 
-<nav class="bg-white shadow p-4 flex justify-around">
+<nav class="bg-gray-50 shadow p-4 flex justify-around">
     <h1 class="text-xl font-bold"> Library </h1>
 
     <?php if (isset($_SESSION['user'])): ?>
